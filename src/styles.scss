@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body,
+app-root {
+  // Pushes the footer to the bottom of the page
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  > app-footer {
+    margin-top: auto;
+  }
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}

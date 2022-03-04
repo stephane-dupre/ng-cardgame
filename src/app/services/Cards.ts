@@ -2,7 +2,7 @@ const Cards = [
   {
     id: "b89cab47-25fb-49ea-bb43-90a0089b6b20",
     name: "Aerial Modification",
-    released_at: "2017-01-20",
+    released_at: "2017-02-20",
     image_uri:
       "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/b/8/b89cab47-25fb-49ea-bb43-90a0089b6b20.jpg?1576381258",
     mana_cost: "{4}{W}",
@@ -15,7 +15,7 @@ const Cards = [
   {
     id: "ff15c06c-160d-4960-92d5-6f8e7b33f051",
     name: "Aeronaut Admiral",
-    released_at: "2017-01-20",
+    released_at: "2017-05-20",
     image_uri:
       "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/f/f/ff15c06c-160d-4960-92d5-6f8e7b33f051.jpg?1576381266",
     mana_cost: "{3}{W}",
@@ -29,7 +29,7 @@ const Cards = [
   {
     id: "f5dcbe97-d582-464e-98e7-dd06d8652606",
     name: "Aether Inspector",
-    released_at: "2017-01-20",
+    released_at: "2017-12-20",
     image_uri:
       "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/f/5/f5dcbe97-d582-464e-98e7-dd06d8652606.jpg?1576381273",
     mana_cost: "{3}{W}",
@@ -44,7 +44,7 @@ const Cards = [
   {
     id: "80bb3abd-ebaf-4dc2-97eb-ed4a2b005177",
     name: "Aethergeode Miner",
-    released_at: "2017-01-20",
+    released_at: "2017-06-20",
     image_uri:
       "https://c1.scryfall.com/file/scryfall-cards/art_crop/front/8/0/80bb3abd-ebaf-4dc2-97eb-ed4a2b005177.jpg?1576381279",
     mana_cost: "{1}{W}",

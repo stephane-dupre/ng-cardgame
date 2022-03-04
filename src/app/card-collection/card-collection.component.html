@@ -1,0 +1,10 @@
+<app-search-bar (searchEvent)="receiveSearch($event)"></app-search-bar>
+<button mat-flat-button [color]="isDesc ? 'primary' : ''"  (click)="changeOrder()">Date : {{isDesc ? 'DESC' : 'ASC'}}</button>
+<div class="collection">
+  <div *ngFor="let card of (cards | searchCards: search | orderCards: isDesc)" class="card">
+    <button mat-mini-fab class="favorite" aria-label="favorite">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <app-card [card]="card"></app-card>
+  </div>
+</div>
