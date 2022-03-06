@@ -12,7 +12,7 @@ export class CardCollectionComponent implements OnInit {
     title = 'cardgame';
     cards!: Card[];
     search: string;
-    isDesc: boolean = false;
+    orderBy: "name"|"date" = "name";
   
     constructor(private cardsServices: CardsServices) {}
     
@@ -25,6 +25,6 @@ export class CardCollectionComponent implements OnInit {
     }
 
     changeOrder() {
-      this.isDesc = !this.isDesc;
+      this.orderBy = this.orderBy === 'name' ? 'date' : 'name';
     }
 }

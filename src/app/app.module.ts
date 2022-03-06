@@ -6,11 +6,12 @@ import localFr from '@angular/common/locales/fr';
 registerLocaleData(localFr);
 
 import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule}  from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -36,11 +37,12 @@ import { FooterComponent } from './footer/footer.component';
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatGridListModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
     FormsModule
   ],
   exports: [

@@ -1,5 +1,6 @@
 export class Card {
   constructor(
+    public isFavorite: boolean,
     public id: string,
     public name: string,
     public releaseDate: Date,
@@ -10,6 +11,6 @@ export class Card {
     public colors: string[],
     public keywords: string[],
     public power?: number,
-    public toughness?: number,
+    public toughness?: number
   ) {}
 }

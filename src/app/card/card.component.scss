@@ -2,7 +2,36 @@
   font-size: 1rem;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 0;
+}
+
 .combat {
+  margin-top: auto;
   display: flex;
   gap: 1rem;
+}
+
+.description {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid rgb(0 0 0 / 0.1);
+  flex: 1;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  aspect-ratio: 9/16;
+}
+
+.favorite {
+  position: absolute;
+  z-index: 1;
+  top: 1rem;
+  right: 1rem;
 }

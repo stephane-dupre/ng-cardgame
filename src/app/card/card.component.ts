@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Card } from '../models/card.model';
+import { CardsServices } from '../services/cards.service';
 
 @Component({
   selector: 'app-card',
@@ -9,11 +10,9 @@ import { Card } from '../models/card.model';
 export class CardComponent {
   @Input() card!: Card;
 
+  constructor(private cardsServices :CardsServices) {}
 
-  constructor() {}
-
-  ngOnInit(): void {
-
+  handleFavorite() {
+    this.cardsServices.onFavorite(this.card)
   }
-
 }

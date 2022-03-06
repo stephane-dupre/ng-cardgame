@@ -10,8 +10,8 @@ export class SearchCardsPipe implements PipeTransform {
 
 @Pipe({name: 'orderCards'})
 export class OrderCardsPipe implements PipeTransform {
-  transform(cards: Card[], isDesc?: boolean) {
-    if (isDesc) return cards.sort((a,b) =>  b.releaseDate.getTime() - a.releaseDate.getTime())
-    return cards.sort((a,b) =>  a.releaseDate.getTime() - b.releaseDate.getTime())
+  transform(cards: Card[], orderBy?: "name"|"date") {
+    if (orderBy === "date") return cards.sort((a,b) => a.releaseDate.getTime() - b.releaseDate.getTime());
+    return cards.sort((a, b) => a.name > b.name && 1 || -1);
   }
 }
