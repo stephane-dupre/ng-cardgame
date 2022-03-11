@@ -1,10 +1,23 @@
 <header>
   <mat-toolbar color="primary">
     <div class="container space-between">
-      <span>CardGame</span>
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
+      <span>{{ title }}</span>
+      <div class="menu">
+        <a
+          routerLink=""
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+        <a routerLink="/about" routerLinkActive="is-active">A propos</a>
+        <button
+          mat-icon-button
+          class="example-icon"
+          aria-label="Example icon-button with menu icon"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-toolbar>
 </header>

@@ -10,9 +10,9 @@ import { CardsServices } from '../services/cards.service';
 export class CardComponent {
   @Input() card!: Card;
 
-  constructor(private cardsServices :CardsServices) {}
+  constructor(private cardsServices: CardsServices) {}
 
   handleFavorite() {
-    this.cardsServices.onFavorite(this.card)
+    this.cardsServices.onFavorite(this.card);
   }
 }

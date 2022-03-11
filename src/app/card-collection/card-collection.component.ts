@@ -5,26 +5,24 @@ import { CardsServices } from '../services/cards.service';
 @Component({
   selector: 'app-card-collection',
   templateUrl: './card-collection.component.html',
-  styleUrls: ['./card-collection.component.scss']
+  styleUrls: ['./card-collection.component.scss'],
 })
 export class CardCollectionComponent implements OnInit {
+  cards!: Card[];
+  search: string;
+  orderBy: 'name' | 'date' = 'name';
 
-    title = 'cardgame';
-    cards!: Card[];
-    search: string;
-    orderBy: "name"|"date" = "name";
-  
-    constructor(private cardsServices: CardsServices) {}
-    
-    ngOnInit(): void {
-      this.cards = this.cardsServices.getAllCards();
-    }
+  constructor(private cardsServices: CardsServices) {}
 
-    receiveSearch($event: string) {
-      this.search = $event;
-    }
+  ngOnInit(): void {
+    this.cards = this.cardsServices.getAllCards();
+  }
 
-    changeOrder() {
-      this.orderBy = this.orderBy === 'name' ? 'date' : 'name';
-    }
+  receiveSearch($event: string) {
+    this.search = $event;
+  }
+
+  changeOrder() {
+    this.orderBy = this.orderBy === 'name' ? 'date' : 'name';
+  }
 }
