@@ -13,6 +13,8 @@ export class CardComponent {
   constructor(private cardsServices: CardsServices) {}
 
   handleFavorite() {
-    this.cardsServices.onFavorite(this.card);
+    this.cardsServices
+      .onFavorite(this.card)
+      .subscribe((c: Card) => (this.card = c));
   }
 }

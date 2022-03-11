@@ -1,17 +1,27 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 import { Card } from '../models/card.model';
 
-@Pipe({name: 'searchCards'})
+@Pipe({ name: 'searchCards' })
 export class SearchCardsPipe implements PipeTransform {
-  transform(cards: Card[], search: string = "") {
-    return cards.filter(({name}) => name.toLowerCase().includes(search.toLowerCase()));
+  transform(cards: Card[], search: string = '') {
+    if (cards === null) return cards;
+    return cards.filter(({ name }) =>
+      name.toLowerCase().includes(search.toLowerCase())
+    );
   }
 }
 
-@Pipe({name: 'orderCards'})
+@Pipe({ name: 'orderCards' })
 export class OrderCardsPipe implements PipeTransform {
-  transform(cards: Card[], orderBy?: "name"|"date") {
-    if (orderBy === "date") return cards.sort((a,b) => a.releaseDate.getTime() - b.releaseDate.getTime());
-    return cards.sort((a, b) => a.name > b.name && 1 || -1);
+  transform(cards: Card[], orderBy?: 'name' | 'date') {
+    if (cards === null) return cards;
+    if (orderBy === 'date') {
+      return cards.sort((a, b) => {
+        return (
+          new Date(a.released_at).getTime() - new Date(b.released_at).getTime()
+        );
+      });
+    }
+    return cards.sort((a, b) => (a.name > b.name && 1) || -1);
   }
 }

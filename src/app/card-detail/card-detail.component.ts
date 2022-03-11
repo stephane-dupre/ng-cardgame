@@ -22,6 +22,6 @@ export class CardDetailComponent {
   }
 
   ngOnInit(): void {
-    this.card = this.cardsServices.getOneCard(this.id);
+    this.cardsServices.getOneCard(this.id).subscribe((c) => (this.card = c));
   }
 }

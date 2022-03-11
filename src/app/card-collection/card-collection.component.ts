@@ -8,14 +8,14 @@ import { CardsServices } from '../services/cards.service';
   styleUrls: ['./card-collection.component.scss'],
 })
 export class CardCollectionComponent implements OnInit {
-  cards!: Card[];
   search: string;
   orderBy: 'name' | 'date' = 'name';
+  cards: Card[];
 
   constructor(private cardsServices: CardsServices) {}
 
   ngOnInit(): void {
-    this.cards = this.cardsServices.getAllCards();
+    this.cardsServices.getAllCards().subscribe((cards) => (this.cards = cards));
   }
 
   receiveSearch($event: string) {
