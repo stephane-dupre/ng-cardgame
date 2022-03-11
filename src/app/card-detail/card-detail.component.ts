@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Card } from '../models/card.model';
 import { CardsServices } from '../services/cards.service';
 
@@ -11,6 +12,8 @@ import { CardsServices } from '../services/cards.service';
 export class CardDetailComponent {
   id: string;
   card!: Card;
+  loaded: boolean = false;
+  cardObservable!: Observable<Card>;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +25,10 @@ export class CardDetailComponent {
   }
 
   ngOnInit(): void {
-    this.card = this.cardsServices.getOneCard(this.id);
+    this.cardObservable = this.cardsServices.getOneCard(this.id);
+    this.cardObservable.subscribe((c) => {
+      this.card = c;
+      this.loaded = true;
+    });
   }
 }

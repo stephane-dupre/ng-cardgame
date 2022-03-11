@@ -1,52 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Card } from '../models/card.model';
-import Cards from './Cards';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardsServices {
-  cards: Card[] = Cards.map(
-    ({
-      id,
-      name,
-      released_at,
-      image_uri,
-      mana_cost,
-      type_line,
-      oracle_text,
-      colors,
-      keywords,
-      power,
-      toughness,
-    }) => {
-      return new Card(
-        id,
-        name,
-        new Date(released_at),
-        image_uri,
-        mana_cost,
-        type_line,
-        oracle_text,
-        colors,
-        keywords,
-        false,
-        Number(power),
-        Number(toughness)
-      );
-    }
-  );
+  constructor(private http: HttpClient) {}
 
-  getAllCards(): Card[] {
-    return this.cards;
+  getAllCards(): Observable<Card[]> {
+    return <Observable<Card[]>>this.http.get('http://localhost:3000/cards');
   }
 
-  getOneCard(id: string): Card {
-    const card = this.cards.find((c) => c.id === id);
-    return card ? card : this.cards[0];
+  getOneCard(id: string): Observable<Card> {
+    return <Observable<Card>>this.http.get(`http://localhost:3000/cards/${id}`);
   }
 
-  onFavorite(card: Card): void {
-    card.isFavorite = !card.isFavorite;
+  onFavorite(card: Card): Observable<Card> {
+    return <Observable<Card>>(
+      this.http.put(`http://localhost:3000/cards/${card.id}/favorite`, {})
+    );
   }
 }

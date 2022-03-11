@@ -24,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CardDetailComponent } from './card-detail/card-detail.component';
 import { AboutComponent } from './about/about.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AboutComponent } from './about/about.component';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
+    HttpClientModule,
   ],
   exports: [SearchCardsPipe, OrderCardsPipe],
   providers: [

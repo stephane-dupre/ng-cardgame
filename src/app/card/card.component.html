@@ -1,11 +1,11 @@
 <mat-card class="root">
   <mat-card-title class="title">{{ card.name }}</mat-card-title>
-  <p>{{ card.mana }}</p>
-  <img mat-card-image [src]="card.image" [alt]="card.name" />
+  <p>{{ card.mana_cost }}</p>
+  <img mat-card-image [src]="card.image_uri" [alt]="card.name" />
   <mat-card-content class="content">
-    <div class="mat-caption">{{ card.type }}</div>
-    <div class="mat-caption">{{ card.releaseDate | date }}</div>
-    <div class="mat-caption description">{{ card.text }}</div>
+    <div class="mat-caption">{{ card.type_line }}</div>
+    <div class="mat-caption">{{ card.released_at | date }}</div>
+    <div class="mat-caption description">{{ card.oracle_text }}</div>
     <div *ngIf="card.power || card.toughness" class="combat">
       <div class="mat-body-2">{{ card.power }} ATK</div>
       <div class="mat-body-2">{{ card.toughness }} DEF</div>

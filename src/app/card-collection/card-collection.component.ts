@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Card } from '../models/card.model';
 import { CardsServices } from '../services/cards.service';
 
@@ -8,14 +9,14 @@ import { CardsServices } from '../services/cards.service';
   styleUrls: ['./card-collection.component.scss'],
 })
 export class CardCollectionComponent implements OnInit {
-  cards!: Card[];
   search: string;
   orderBy: 'name' | 'date' = 'name';
+  cardsObservable: Observable<any>;
 
   constructor(private cardsServices: CardsServices) {}
 
   ngOnInit(): void {
-    this.cards = this.cardsServices.getAllCards();
+    this.cardsObservable = this.cardsServices.getAllCards();
   }
 
   receiveSearch($event: string) {
