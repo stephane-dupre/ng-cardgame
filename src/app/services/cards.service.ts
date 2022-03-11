@@ -21,7 +21,6 @@ export class CardsServices {
       toughness,
     }) => {
       return new Card(
-        false,
         id,
         name,
         new Date(released_at),
@@ -31,6 +30,7 @@ export class CardsServices {
         oracle_text,
         colors,
         keywords,
+        false,
         Number(power),
         Number(toughness)
       );
@@ -39,6 +39,11 @@ export class CardsServices {
 
   getAllCards(): Card[] {
     return this.cards;
+  }
+
+  getOneCard(id: string): Card {
+    const card = this.cards.find((c) => c.id === id);
+    return card ? card : this.cards[0];
   }
 
   onFavorite(card: Card): void {

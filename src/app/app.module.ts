@@ -7,7 +7,7 @@ registerLocaleData(localFr);
 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule}  from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,6 +21,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchCardsPipe, OrderCardsPipe } from './pipes/card.pipe';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CardDetailComponent } from './card-detail/card-detail.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -31,9 +34,12 @@ import { FooterComponent } from './footer/footer.component';
     SearchCardsPipe,
     OrderCardsPipe,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CardDetailComponent,
+    AboutComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -43,16 +49,15 @@ import { FooterComponent } from './footer/footer.component';
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
   ],
-  exports: [
-    SearchCardsPipe,
-    OrderCardsPipe
+  exports: [SearchCardsPipe, OrderCardsPipe],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'fr-FR',
+    },
   ],
-  providers: [{
-    provide: LOCALE_ID,
-    useValue: 'fr-FR'
-  }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
