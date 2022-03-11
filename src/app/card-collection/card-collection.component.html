@@ -7,11 +7,10 @@
       <mat-option value="date">Release date</mat-option>
     </mat-select>
   </mat-form-field>
-  <div class="collection">
+  <div *ngIf="cards" class="collection">
     <div
       *ngFor="
-        let card of cardsObservable
-          | async
+        let card of cards
           | searchCards: search
           | orderCards: orderBy
       "

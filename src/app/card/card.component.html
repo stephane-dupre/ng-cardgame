@@ -1,4 +1,4 @@
-<mat-card class="root">
+<mat-card *ngIf="card" class="root">
   <mat-card-title class="title">{{ card.name }}</mat-card-title>
   <p>{{ card.mana_cost }}</p>
   <img mat-card-image [src]="card.image_uri" [alt]="card.name" />
