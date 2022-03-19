@@ -15,7 +15,10 @@ export class CardCollectionComponent implements OnInit {
   constructor(private cardsServices: CardsServices) {}
 
   ngOnInit(): void {
-    this.cardsServices.getAllCards().subscribe((cards) => (this.cards = cards));
+    this.cardsServices.getAllCards().subscribe((cards) => {
+      console.log(cards);
+      this.cards = cards;
+    });
   }
 
   receiveSearch($event: string) {

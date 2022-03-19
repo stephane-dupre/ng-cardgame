@@ -1,7 +1,7 @@
 <mat-card *ngIf="card" class="root">
   <mat-card-title class="title">{{ card.name }}</mat-card-title>
   <p>{{ card.mana_cost }}</p>
-  <img mat-card-image [src]="card.image_uri" [alt]="card.name" />
+  <img mat-card-image [src]="card.image_uris.art_crop" [alt]="card.name" />
   <mat-card-content class="content">
     <div class="mat-caption">{{ card.type_line }}</div>
     <div class="mat-caption">{{ card.released_at | date }}</div>
