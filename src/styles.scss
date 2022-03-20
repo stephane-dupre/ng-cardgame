@@ -22,6 +22,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+a[href] {
+  color: unset;
+  text-decoration: unset;
+}
+
 .container {
   max-width: 80rem;
   width: 100%;
