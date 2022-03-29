@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Card } from '../models/card.model';
-import { Purchase } from '../models/purchase.model';
+import { CartItem } from '../models/cartItem.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CartServices {
-  public cart: Purchase[];
+export class CartService {
+  private cart: CartItem[];
 
-  private update(newCart: Purchase[]) {
+  private save(newCart: CartItem[]) {
     this.cart = newCart;
     window.localStorage.setItem('cart', JSON.stringify(this.cart));
   }
@@ -17,64 +17,54 @@ export class CartServices {
     return !isNaN(qty) && qty > 0 && Number.isInteger(qty);
   };
 
-  private purchaseOrUndefined(
-    id: string,
-    variant: string
-  ): Purchase | undefined {
-    return this.cart.find((p) => id === p.card.id && variant === p.variant);
+  private areEquals(p1: CartItem, p2: CartItem): boolean {
+    return p1.card.id === p2.card.id && p1.variant === p2.variant;
   }
 
-  constructor() {
-    this.update(JSON.parse(window.localStorage.getItem('cart') || '[]'));
+  private findCartItem(newCartItem: CartItem): CartItem | undefined {
+    return this.cart.find((cartItem) => this.areEquals(cartItem, newCartItem));
   }
 
-  nbItems(): number {
-    return this.cart.reduce((acc, val) => acc + val.qty, 0);
+  private insertCartItem(newCartItem: CartItem): CartItem[] {
+    return [...this.cart, newCartItem];
   }
 
-  totalPrice(): number {
-    return this.cart.reduce(
-      (acc, { qty, card, variant }) => acc + qty * card.prices[variant],
-      0
+  private updateCartItem(newCartItem: CartItem): CartItem[] {
+    return this.cart.map((cartItem) =>
+      this.areEquals(cartItem, newCartItem) ? newCartItem : cartItem
     );
   }
 
-  addToCart = (card: Card, variant: keyof Card['prices'], addedQty: number) => {
-    if (!this.qtyIsValid(addedQty)) return;
-    const newCart = this.purchaseOrUndefined(card.id, variant)
-      ? this.cart.map((p) => {
-          return p.card.id === card.id && p.variant === variant
-            ? new Purchase(p.qty + addedQty, variant, card)
-            : new Purchase(p.qty, p.variant, p.card);
-        })
-      : [...this.cart, new Purchase(addedQty, variant, card)];
+  private deleteCartItem(cartItemToDelete: CartItem): CartItem[] {
+    return this.cart.filter(
+      (cartItem) => !this.areEquals(cartItem, cartItemToDelete)
+    );
+  }
 
-    this.update(newCart);
+  private updateCart = (cartItem: CartItem) => {
+    const cart = this.findCartItem(cartItem)
+      ? this.updateCartItem(cartItem)
+      : this.insertCartItem(cartItem);
+    this.save(cart);
   };
 
-  updateQty = (id: string, variant: keyof Card['prices'], newQty: number) => {
-    if (!this.qtyIsValid(newQty)) return;
-    const newCart = this.purchaseOrUndefined(id, variant)
-      ? this.cart.map((p) => {
-          return p.card.id === id && p.variant === variant
-            ? new Purchase(newQty, variant, p.card)
-            : new Purchase(p.qty, p.variant, p.card);
-        })
-      : this.cart;
+  constructor() {
+    this.save(JSON.parse(window.localStorage.getItem('cart') || '[]'));
+  }
 
-    this.update(newCart);
-  };
+  getAll() {
+    return this.cart;
+  }
 
-  removeFromCart = (card: Card, variant: keyof Card['prices']) => {
-    if (this.purchaseOrUndefined(card.id, variant)) {
-      const newCart = this.cart.filter(
-        (p) => !(p.card.id === card.id && p.variant === variant)
-      );
-      this.update(newCart);
-    }
-  };
+  add(qty: number, variant: keyof Card['prices'], card: Card) {
+    if (!this.qtyIsValid(qty)) return;
+    const currentQty =
+      this.findCartItem(new CartItem(qty, variant, card))?.qty || 0;
+    const cartItem = new CartItem(qty + currentQty, variant, card);
+    this.updateCart(cartItem);
+  }
 
-  clearCart = () => {
-    this.update([]);
+  clear = () => {
+    this.save([]);
   };
 }

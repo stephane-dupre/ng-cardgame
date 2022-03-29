@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class CardsServices {
+export class CardsService {
   constructor(private http: HttpClient) {}
 
   getAllCards(): Observable<Card[]> {

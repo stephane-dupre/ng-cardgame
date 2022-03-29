@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Card } from '../models/card.model';
-import { CardsServices } from '../services/cards.service';
+import { CardsService } from '../services/cards.service';
 
 @Component({
   selector: 'app-card-collection',
@@ -12,10 +12,10 @@ export class CardCollectionComponent implements OnInit {
   orderBy: 'name' | 'date' = 'name';
   cards: Card[];
 
-  constructor(private cardsServices: CardsServices) {}
+  constructor(private cardsService: CardsService) {}
 
   ngOnInit(): void {
-    this.cardsServices.getAllCards().subscribe((cards) => {
+    this.cardsService.getAllCards().subscribe((cards) => {
       console.log(cards);
       this.cards = cards;
     });
