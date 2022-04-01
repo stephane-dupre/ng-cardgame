@@ -17,21 +17,21 @@ export class CartService {
     return !isNaN(qty) && qty > 0 && Number.isInteger(qty);
   };
 
-  private findCartItem(idToFind: string): CartItem | undefined {
+  private find(idToFind: string): CartItem | undefined {
     return this.cart.find(({ id }) => idToFind === id);
   }
 
-  private insertCartItem(cartItemToInsert: CartItem): CartItem[] {
+  private insert(cartItemToInsert: CartItem): CartItem[] {
     return [...this.cart, cartItemToInsert];
   }
 
-  private updateCartItem(CartItemToUpdate: CartItem): CartItem[] {
+  private update(CartItemToUpdate: CartItem): CartItem[] {
     return this.cart.map((cartItem) =>
       CartItemToUpdate.id === cartItem.id ? CartItemToUpdate : cartItem
     );
   }
 
-  private deleteCartItem(cartItemToDelete: CartItem): CartItem[] {
+  private delete(cartItemToDelete: CartItem): CartItem[] {
     return this.cart.filter((cartItem) => cartItemToDelete.id !== cartItem.id);
   }
 
@@ -47,16 +47,16 @@ export class CartService {
     variant: keyof Card['prices'],
     card: Card
   ): CartItem | undefined => {
-    return this.findCartItem(CartItem.generateId(variant, card.id));
+    return this.find(CartItem.generateId(variant, card.id));
   };
 
   // TODO: return error on failure
   addItem = (qty: number, variant: keyof Card['prices'], card: Card): void => {
     if (!this.isValid(qty)) return;
-    const cartItem = this.findCartItem(CartItem.generateId(variant, card.id));
+    const cartItem = this.find(CartItem.generateId(variant, card.id));
     const cart = cartItem
-      ? this.updateCartItem(CartItem.create(qty + cartItem.qty, variant, card))
-      : this.insertCartItem(CartItem.create(qty, variant, card));
+      ? this.update(CartItem.create(qty + cartItem.qty, variant, card))
+      : this.insert(CartItem.create(qty, variant, card));
     this.save(cart);
   };
 
@@ -66,21 +66,21 @@ export class CartService {
     card: Card
   ): void => {
     if (!this.isValid(qty)) return;
-    const cartItem = this.findCartItem(CartItem.generateId(variant, card.id));
+    const cartItem = this.find(CartItem.generateId(variant, card.id));
     if (!cartItem) return;
     const newQty = cartItem.qty - qty;
     const cart =
       newQty > 0
-        ? this.updateCartItem(CartItem.create(newQty, variant, card))
-        : this.deleteCartItem(cartItem);
+        ? this.update(CartItem.create(newQty, variant, card))
+        : this.delete(cartItem);
     this.save(cart);
   };
 
   // TODO: return error on failure
   deleteItem = (variant: keyof Card['prices'], card: Card): void => {
-    const cartItem = this.findCartItem(CartItem.generateId(variant, card.id));
+    const cartItem = this.find(CartItem.generateId(variant, card.id));
     if (cartItem) {
-      const cart = this.deleteCartItem(cartItem);
+      const cart = this.delete(cartItem);
       this.save(cart);
     }
   };
