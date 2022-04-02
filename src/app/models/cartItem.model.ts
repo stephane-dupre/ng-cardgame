@@ -3,7 +3,7 @@ import { Card } from './card.model';
 export class CartItem {
   public id: string;
 
-  private constructor(
+  constructor(
     public qty: number,
     public variant: keyof Card['prices'],
     public card: Card
@@ -16,9 +16,5 @@ export class CartItem {
 
   public static generateId(variant: keyof Card['prices'], id: string) {
     return `${id}::${variant}`;
-  }
-
-  public static create(qty: number, variant: keyof Card['prices'], card: Card) {
-    return new CartItem(qty, variant, card);
   }
 }

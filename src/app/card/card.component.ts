@@ -20,7 +20,5 @@ export class CardComponent {
     this.cardsService
       .onFavorite(this.card)
       .subscribe((c: Card) => (this.card = c));
-
-    this.cartService.substractItem(2, 'eur', this.card);
   }
 }

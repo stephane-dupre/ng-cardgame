@@ -55,24 +55,15 @@ export class CartService {
     if (!this.isValid(qty)) return;
     const cartItem = this.find(CartItem.generateId(variant, card.id));
     const cart = cartItem
-      ? this.update(CartItem.create(qty + cartItem.qty, variant, card))
-      : this.insert(CartItem.create(qty, variant, card));
+      ? this.update(new CartItem(qty + cartItem.qty, variant, card))
+      : this.insert(new CartItem(qty, variant, card));
     this.save(cart);
   };
 
-  substractItem = (
-    qty: number,
-    variant: keyof Card['prices'],
-    card: Card
-  ): void => {
-    if (!this.isValid(qty)) return;
-    const cartItem = this.find(CartItem.generateId(variant, card.id));
-    if (!cartItem) return;
-    const newQty = cartItem.qty - qty;
-    const cart =
-      newQty > 0
-        ? this.update(CartItem.create(newQty, variant, card))
-        : this.delete(cartItem);
+  changeItemQty = (newQty: number, { variant, card }: CartItem): void => {
+    if (!this.isValid(newQty)) return;
+    const cart = this.update(new CartItem(newQty, variant, card));
+    console.log(cart);
     this.save(cart);
   };
 
