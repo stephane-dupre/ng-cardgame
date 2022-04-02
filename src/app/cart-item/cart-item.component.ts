@@ -23,6 +23,11 @@ export class CartItemComponent implements OnInit {
     this.qty = this.cartItem.qty;
   }
 
+  getPrice = (): number => {
+    const price = this.card.prices[this.cartItem.variant] * this.qty;
+    return price > 0 ? price : 0;
+  };
+
   handleChange = () => {
     const data = { cartItem: this.cartItem, newQty: this.qty };
     this.emitChange.emit(data);
