@@ -39,6 +39,13 @@ export class CartService {
     this.save(JSON.parse(window.localStorage.getItem('cart') || '[]'));
   }
 
+  getTotal = (): number => {
+    return this.cart.reduce(
+      (acc, { qty, variant, card }) => acc + qty * card.prices[variant],
+      0
+    );
+  };
+
   getAllItems = (): CartItem[] => {
     return this.cart;
   };
@@ -79,7 +86,6 @@ export class CartService {
   changeItemQty = (newQty: number, { variant, card }: CartItem): void => {
     if (!this.isValid(newQty)) return;
     const cart = this.update(new CartItem(newQty, variant, card));
-    console.log(cart);
     this.save(cart);
   };
 

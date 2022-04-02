@@ -13,6 +13,7 @@ export class CartItemComponent implements OnInit {
     new EventEmitter<{ cartItem: CartItem; newQty: number }>();
 
   @Input() cartItem: CartItem;
+  price: number;
   card: Card;
   qty: number;
 
@@ -21,14 +22,11 @@ export class CartItemComponent implements OnInit {
   ngOnInit(): void {
     this.card = this.cartItem.card;
     this.qty = this.cartItem.qty;
+    this.price = this.card.prices[this.cartItem.variant] * this.qty;
   }
 
-  getPrice = (): number => {
-    const price = this.card.prices[this.cartItem.variant] * this.qty;
-    return price > 0 ? price : 0;
-  };
-
   handleChange = () => {
+    this.price = this.card.prices[this.cartItem.variant] * this.qty;
     const data = { cartItem: this.cartItem, newQty: this.qty };
     this.emitChange.emit(data);
   };
