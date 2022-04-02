@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Card } from '../models/card.model';
-import { CardsServices } from '../services/cards.service';
+import { CardsService } from '../services/cards.service';
 
 @Component({
   selector: 'app-card',
@@ -10,10 +10,10 @@ import { CardsServices } from '../services/cards.service';
 export class CardComponent {
   @Input() card!: Card;
 
-  constructor(private cardsServices: CardsServices) {}
+  constructor(private cardsService: CardsService) {}
 
   handleFavorite() {
-    this.cardsServices
+    this.cardsService
       .onFavorite(this.card)
       .subscribe((c: Card) => (this.card = c));
   }

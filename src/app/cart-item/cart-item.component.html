@@ -1,0 +1,19 @@
+<mat-card class="card">
+  <mat-card-content>
+    <img mat-card-sm-image class="img" [src]="card.image_uris['art_crop']" [alt]="card.name">  
+  </mat-card-content>
+    <mat-card-content>
+      <mat-card-title-group>
+        <mat-card-title>{{card.name}}</mat-card-title>
+        <mat-card-title>{{price.toFixed(2)}} €</mat-card-title>
+      </mat-card-title-group>
+    <mat-card-subtitle>{{cartItem.variant}}</mat-card-subtitle>
+    <div class="card-group">
+      <mat-form-field>
+        <mat-label>Quantité</mat-label>
+        <input matInput min="1" type="number" [(ngModel)]="qty" (change)="handleChange()"/>
+      </mat-form-field>
+      <button mat-flat-button color="warn" (click)="handleDelete()">Supprimer</button>
+    </div>
+  </mat-card-content>
+</mat-card>

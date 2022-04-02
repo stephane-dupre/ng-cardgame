@@ -1,0 +1,11 @@
+.card {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  
+  &-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Card } from '../models/card.model';
-import { CardsServices } from '../services/cards.service';
+import { CardsService } from '../services/cards.service';
 
 @Component({
   selector: 'app-card-detail',
@@ -14,7 +14,7 @@ export class CardDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private cardsServices: CardsServices
+    private cardsService: CardsService
   ) {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
@@ -22,6 +22,6 @@ export class CardDetailComponent {
   }
 
   ngOnInit(): void {
-    this.cardsServices.getOneCard(this.id).subscribe((c) => (this.card = c));
+    this.cardsService.getOneCard(this.id).subscribe((c) => (this.card = c));
   }
 }

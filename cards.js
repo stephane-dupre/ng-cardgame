@@ -1318,35 +1318,3 @@ const cards = [
     },
   },
 ];
-
-const express = require("express");
-const app = express();
-const port = 3000;
-const cors = require("cors");
-
-app.use(express.json());
-
-app.use(cors());
-
-app.listen(port, () => {
-  console.log(`Application exemple à l'écoute sur le port ${port}!`);
-});
-
-app.get("/cards", (req, res) => {
-  res.set("Acces-Control-Allow-Origin", "*");
-  res.json(cards);
-});
-
-app.get("/cards/:id", (req, res) => {
-  const id = req.params.id;
-  res.set("Acces-Control-Allow-Origin", "*");
-  res.json(cards.find((c) => c.id === id));
-});
-
-app.put("/cards/:id/favorite", (req, res) => {
-  const id = req.params.id;
-  let card = cards.find((c) => c.id === id);
-  card.isFavorite = !card.isFavorite;
-  res.set("Acces-Control-Allow-Origin", "*");
-  res.json(card);
-});
