@@ -60,6 +60,22 @@ export class CartService {
     this.save(cart);
   };
 
+  substractItem = (
+    qty: number,
+    variant: keyof Card['prices'],
+    card: Card
+  ): void => {
+    if (!this.isValid(qty)) return;
+    const cartItem = this.find(CartItem.generateId(variant, card.id));
+    if (!cartItem) return;
+    const newQty = cartItem.qty - qty;
+    const cart =
+      newQty > 0
+        ? this.update(new CartItem(newQty, variant, card))
+        : this.delete(cartItem);
+    this.save(cart);
+  };
+
   changeItemQty = (newQty: number, { variant, card }: CartItem): void => {
     if (!this.isValid(newQty)) return;
     const cart = this.update(new CartItem(newQty, variant, card));
