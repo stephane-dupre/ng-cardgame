@@ -1,11 +1,11 @@
 <div class="container wrapper">
   <mat-card class="cart-header">
-    <mat-card-title>Total : {{total.toFixed(2)}} €</mat-card-title>
+    <mat-card-title>Total : {{cart.total().toFixed(2)}} €</mat-card-title>
     <button mat-flat-button color="primary" (click)="order()">Commander</button>
   </mat-card>
   <app-cart-item class="item"
-    *ngFor="let cartItem of cart" 
-    [cartItem]="cartItem" 
-    (emitDelete)="deleteCartItem($event)" 
-    (emitChange)="updateCartItemQty($event)"></app-cart-item>
+    *ngFor="let item of cart.items" 
+    [item]="item" 
+    (emitDelete)="deleteItem($event)" 
+    (emitChange)="updateItemQty($event)"></app-cart-item>
 </div>

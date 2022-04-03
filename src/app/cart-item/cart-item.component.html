@@ -1,13 +1,13 @@
 <mat-card class="card">
   <mat-card-content>
-    <img mat-card-lg-image class="card-img" [src]="card.image_uris['art_crop']" [alt]="card.name">  
+    <img mat-card-lg-image class="card-img" [src]="item.card.image_uris['art_crop']" [alt]="item.card.name">  
   </mat-card-content>
     <mat-card-content>
       <mat-card-title-group>
-        <mat-card-title>{{card.name}}</mat-card-title>
-        <mat-card-subtitle>{{cartItem.variant}}</mat-card-subtitle>
+        <mat-card-title>{{item.card.name}}</mat-card-title>
+        <mat-card-subtitle>{{item.variant}}</mat-card-subtitle>
       </mat-card-title-group>
-    <p class="mat-body-2">{{price.toFixed(2)}} €</p>
+    <p class="mat-body-2">{{qty * item.card.prices[item.variant]}} €</p>
     <div class="card-group">
       <mat-form-field class="card-input">
         <mat-label>Quantité</mat-label>
