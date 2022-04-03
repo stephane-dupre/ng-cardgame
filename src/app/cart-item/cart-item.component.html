@@ -1,15 +1,15 @@
 <mat-card class="card">
   <mat-card-content>
-    <img mat-card-sm-image class="img" [src]="card.image_uris['art_crop']" [alt]="card.name">  
+    <img mat-card-lg-image class="card-img" [src]="card.image_uris['art_crop']" [alt]="card.name">  
   </mat-card-content>
     <mat-card-content>
       <mat-card-title-group>
         <mat-card-title>{{card.name}}</mat-card-title>
-        <mat-card-title>{{price.toFixed(2)}} €</mat-card-title>
+        <mat-card-subtitle>{{cartItem.variant}}</mat-card-subtitle>
       </mat-card-title-group>
-    <mat-card-subtitle>{{cartItem.variant}}</mat-card-subtitle>
+    <p class="mat-body-2">{{price.toFixed(2)}} €</p>
     <div class="card-group">
-      <mat-form-field>
+      <mat-form-field class="card-input">
         <mat-label>Quantité</mat-label>
         <input matInput min="1" type="number" [(ngModel)]="qty" (change)="handleChange()"/>
       </mat-form-field>
