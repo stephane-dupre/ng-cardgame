@@ -25,14 +25,13 @@ export class Cart {
   }
 
   private insert(cartItemToInsert: Item): void {
-    this.items = [...this.items, cartItemToInsert];
+    this.items.push(cartItemToInsert);
     this.persist();
   }
 
   private update(CartItemToUpdate: Item): void {
-    this.items = this.items.map((item) =>
-      CartItemToUpdate.id === item.id ? CartItemToUpdate : item
-    );
+    const item = this.find(CartItemToUpdate.id);
+    if (item) item.qty = CartItemToUpdate.qty;
     this.persist();
   }
 

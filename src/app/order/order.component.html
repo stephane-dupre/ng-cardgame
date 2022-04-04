@@ -1,0 +1,9 @@
+<div class="container">
+  <mat-card class="card">
+    <mat-card-content>
+      <mat-card-title>Commande n°{{id}}</mat-card-title>
+      <p class="mat-body-2">{{cart?.total()}} €</p>
+      <button mat-flat-button color="primary" (click)="confirm()">Confirmer la commande</button>
+    </mat-card-content>
+  </mat-card>
+</div>

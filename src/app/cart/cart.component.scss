@@ -9,3 +9,15 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.empty {
+  min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > p {
+    font-size: 2rem;
+    opacity: 0.6;
+  }
+}
