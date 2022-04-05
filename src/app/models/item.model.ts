@@ -1,6 +1,6 @@
 import { Card } from './card.model';
 
-export class CartItem {
+export class Item {
   public id: string;
 
   constructor(
@@ -8,7 +8,7 @@ export class CartItem {
     public variant: keyof Card['prices'],
     public card: Card
   ) {
-    this.id = CartItem.generateId(variant, card.id);
+    this.id = Item.generateId(variant, card.id);
     this.qty = qty;
     this.variant = variant;
     this.card = card;

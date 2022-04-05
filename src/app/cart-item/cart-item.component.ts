@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from '../models/card.model';
-import { CartItem } from '../models/cartItem.model';
+import { Item } from '../models/item.model';
 
 @Component({
   selector: 'app-cart-item',
@@ -8,30 +8,25 @@ import { CartItem } from '../models/cartItem.model';
   styleUrls: ['./cart-item.component.scss'],
 })
 export class CartItemComponent implements OnInit {
-  @Output() emitDelete: EventEmitter<CartItem> = new EventEmitter<CartItem>();
-  @Output() emitChange: EventEmitter<{ cartItem: CartItem; newQty: number }> =
-    new EventEmitter<{ cartItem: CartItem; newQty: number }>();
+  @Output() emitDelete: EventEmitter<Item> = new EventEmitter<Item>();
+  @Output() emitChange: EventEmitter<{ item: Item; newQty: number }> =
+    new EventEmitter<{ item: Item; newQty: number }>();
 
-  @Input() cartItem: CartItem;
-  price: number;
-  card: Card;
+  @Input() item: Item;
   qty: number;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.card = this.cartItem.card;
-    this.qty = this.cartItem.qty;
-    this.price = this.card.prices[this.cartItem.variant] * this.qty;
+    this.qty = this.item.qty;
   }
 
   handleChange = () => {
-    this.price = this.card.prices[this.cartItem.variant] * this.qty;
-    const data = { cartItem: this.cartItem, newQty: this.qty };
+    const data = { newQty: this.qty, item: this.item };
     this.emitChange.emit(data);
   };
 
   handleDelete = () => {
-    this.emitDelete.emit(this.cartItem);
+    this.emitDelete.emit(this.item);
   };
 }

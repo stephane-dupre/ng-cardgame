@@ -16,7 +16,6 @@ export class CardCollectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.cardsService.getAllCards().subscribe((cards) => {
-      console.log(cards);
       this.cards = cards;
     });
   }

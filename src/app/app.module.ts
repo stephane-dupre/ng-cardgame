@@ -27,6 +27,8 @@ import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { OrderComponent } from './order/order.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { CartItemComponent } from './cart-item/cart-item.component';
     AboutComponent,
     CartComponent,
     CartItemComponent,
+    OrderComponent,
+    OrderListComponent,
   ],
   imports: [
     AppRoutingModule,

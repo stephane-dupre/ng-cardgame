@@ -1,0 +1,8 @@
+<div class="container wrapper">
+  <mat-card *ngFor="let order of orders">
+    <mat-card-content>
+      <mat-card-title>Commande n°{{order.id}} | Total: {{order.total}} €</mat-card-title>
+      <div *ngFor="let item of order.items" class="mat-body-1">{{item.card.name}} - prix unitaire : {{item.card.prices[item.variant]}} € - qty: {{item.qty}}</div>
+    </mat-card-content>
+  </mat-card>
+</div>

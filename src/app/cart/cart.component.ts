@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartItem } from '../models/cartItem.model';
+import { Router } from '@angular/router';
+import { Item } from '../models/item.model';
 import { CartService } from '../services/cart.service';
 
 @Component({
@@ -8,27 +9,27 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  cart: CartItem[];
-  total: number;
-  qty: number;
+  cart: Item[];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.cart = this.cartService.getAllItems();
-    this.total = this.cartService.getTotal();
   }
 
-  deleteCartItem = (item: CartItem) => {
-    this.cartService.deleteItem(item.variant, item.card);
+  total(): string {
+    return this.cartService.total().toFixed(2);
+  }
+
+  deleteItem = (item: Item) => {
+    this.cartService.deleteItem(item);
   };
 
-  updateCartItemQty = ({ cartItem, newQty }: any) => {
-    this.cartService.changeItemQty(newQty, cartItem);
-    this.total = this.cartService.getTotal();
+  updateItemQty = ({ newQty, item }: any) => {
+    this.cartService.changeItemQty(newQty, item);
   };
 
   order = () => {
-    console.log(Date.now());
+    this.router.navigate(['/order']);
   };
 }
