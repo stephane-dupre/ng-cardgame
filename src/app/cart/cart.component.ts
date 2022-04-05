@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cart } from '../models/cart.model';
 import { Item } from '../models/item.model';
 import { CartService } from '../services/cart.service';
 
@@ -10,20 +9,24 @@ import { CartService } from '../services/cart.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  cart: Cart;
+  cart: Item[];
 
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cartService.cart.subscribe((cart) => (this.cart = cart));
+    this.cart = this.cartService.getAllItems();
+  }
+
+  total(): string {
+    return this.cartService.total().toFixed(2);
   }
 
   deleteItem = (item: Item) => {
-    this.cart.deleteItem(item);
+    this.cartService.deleteItem(item);
   };
 
   updateItemQty = ({ newQty, item }: any) => {
-    this.cart.changeItemQty(newQty, item);
+    this.cartService.changeItemQty(newQty, item);
   };
 
   order = () => {

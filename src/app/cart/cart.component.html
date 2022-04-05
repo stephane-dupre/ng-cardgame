@@ -1,14 +1,14 @@
-<div *ngIf="cart.itemCount() > 0" class="container wrapper">
+<div *ngIf="cart.length > 0" class="container wrapper">
   <mat-card class="cart-header">
-    <mat-card-title>Total : {{cart.total().toFixed(2)}} €</mat-card-title>
+    <mat-card-title>Total : {{total()}} €</mat-card-title>
     <button mat-flat-button color="primary" (click)="order()">Commander</button>
   </mat-card>
   <app-cart-item class="item"
-    *ngFor="let item of cart.items" 
+    *ngFor="let item of cart" 
     [item]="item" 
     (emitDelete)="deleteItem($event)" 
     (emitChange)="updateItemQty($event)"></app-cart-item>
 </div>
-<div *ngIf="cart.itemCount() <= 0" class="empty">
+<div *ngIf="cart.length <= 0" class="empty">
   <p>Votre panier est vide</p>
 </div>

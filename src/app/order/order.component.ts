@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cart } from '../models/cart.model';
+import { Item } from '../models/item.model';
 import { Order } from '../models/order.model';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
@@ -12,7 +12,7 @@ import { OrderService } from '../services/order.service';
 })
 export class OrderComponent implements OnInit {
   id: string;
-  cart: Cart;
+  cart: Item[];
 
   constructor(
     private orderService: OrderService,
@@ -22,13 +22,17 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Date.now().toString();
-    this.cartService.cart.subscribe((cart) => (this.cart = cart));
+    this.cart = this.cartService.getAllItems();
+  }
+
+  total(): string {
+    return this.cartService.total().toFixed(2);
   }
 
   confirm() {
-    const order = new Order(this.id, this.cart.items, this.cart.total());
+    const order = new Order(this.id, this.cart, this.cartService.total());
     this.orderService.insert(order);
-    this.cart.clear();
+    this.cartService.clear();
     this.router.navigate(['/order-list']);
   }
 }
