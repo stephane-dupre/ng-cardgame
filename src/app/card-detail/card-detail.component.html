@@ -1,1 +1,11 @@
-<app-card [card]="card"></app-card>
+<div>
+    <app-card [card]="card"></app-card>
+    <mat-form-field>
+        <mat-label>Selectionne le type de carte</mat-label>
+        <mat-select [(value)]="selected">
+            <mat-option value="normale">Normale</mat-option>
+            <mat-option value="brillante">Brillante</mat-option>
+        </mat-select>
+        <button mat-button>Ajouter au panier</button>
+    </mat-form-field>
+</div>
