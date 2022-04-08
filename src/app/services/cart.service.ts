@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../models/item.model';
@@ -12,10 +13,20 @@ export class CartService {
   private cart: Observable<Item[]>;
   private items: Item[];
 
-  constructor() {
+  private oItiems: Observable<Item[]>;
+
+  constructor(private http: HttpClient) {
     const init = this.local || [];
     this.cart = new Observable<Item[]>((cart) => cart.next(init));
     this.cart.subscribe((items) => (this.items = items));
+  }
+
+  getAllOItems(): Observable<Item[]> {
+    return <Observable<Item[]>>this.http.get('http://localhost:3000/cart');
+  }
+
+  insertOItem(item: Item): Observable<Item> {
+    return <Observable<Item>>this.http.put('http://localhost:3000/cart', item);
   }
 
   private persist() {

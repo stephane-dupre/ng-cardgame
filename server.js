@@ -1319,6 +1319,8 @@ const cards = [
   },
 ];
 
+const cart = [];
+
 const express = require("express");
 const app = express();
 const port = 3000;
@@ -1332,6 +1334,7 @@ app.listen(port, () => {
   console.log(`Application exemple à l'écoute sur le port ${port}!`);
 });
 
+// Cards
 app.get("/cards", (req, res) => {
   res.set("Acces-Control-Allow-Origin", "*");
   res.json(cards);
@@ -1349,4 +1352,17 @@ app.put("/cards/:id/favorite", (req, res) => {
   card.isFavorite = !card.isFavorite;
   res.set("Acces-Control-Allow-Origin", "*");
   res.json(card);
+});
+
+// Cart
+
+app.get("/cart", (req, res) => {
+  res.set("Acces-Control-Allow-Origin", "*");
+  res.json(cart);
+});
+
+app.put("/cart", (req, res) => {
+  cart.push(req.body);
+  res.set("Acces-Control-Allow-Origin", "*");
+  res.json(cart);
 });
