@@ -5,7 +5,7 @@ export class Item {
 
   constructor(
     public qty: number,
-    public variant: keyof Card['prices'],
+    public variant: keyof Card['variants'],
     public card: Card
   ) {
     this.id = Item.generateId(variant, card.id);
@@ -14,7 +14,7 @@ export class Item {
     this.card = card;
   }
 
-  public static generateId(variant: keyof Card['prices'], id: string) {
+  public static generateId(variant: keyof Card['variants'], id: string) {
     return `${id}::${variant}`;
   }
 }

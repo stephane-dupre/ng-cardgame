@@ -10,23 +10,30 @@ import { CartService } from '../services/cart.service';
 })
 export class CartComponent implements OnInit {
   cart: Item[];
+  count: number;
 
   constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cart = this.cartService.getAllItems();
+    this.cartService.getAllItems().subscribe((c) => (this.cart = c));
   }
 
-  total(): string {
-    return this.cartService.total().toFixed(2);
+  itemCount() {
+    return this.cartService.itemCount(this.cart);
   }
 
-  deleteItem = (item: Item) => {
-    this.cartService.deleteItem(item);
+  total(): number {
+    return this.cartService.total(this.cart);
+  }
+
+  deleteItem = ({ id }: Item) => {
+    this.cartService.deleteItem(id).subscribe((c) => (this.cart = c));
   };
 
-  updateItemQty = ({ newQty, item }: any) => {
-    this.cartService.changeItemQty(newQty, item);
+  updateItemQty = ({ newQty, item }: { newQty: number; item: Item }) => {
+    this.cartService
+      .patchItem(item.id, newQty)
+      .subscribe((c) => (this.cart = c));
   };
 
   order = () => {
