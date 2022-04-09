@@ -1,11 +1,16 @@
 <div>
     <app-card [card]="card"></app-card>
+    <div>
+        <h1>{{card.name }}</h1>
+        <h3>{{ card.colors }}</h3>
+        <h3>{{ card.released_at }}</h3>
+    </div>
     <mat-form-field>
         <mat-label>Selectionne le type de carte</mat-label>
         <mat-select [(value)]="selected">
-            <mat-option value="normale">Normale</mat-option>
-            <mat-option value="brillante">Brillante</mat-option>
-        </mat-select>
-        <button mat-button>Ajouter au panier</button>
+            <mat-option value="normal">Normale</mat-option>
+            <mat-option value="foil">Brillante</mat-option>
+        </mat-select> 
     </mat-form-field>
+    <button mat-button (click)="putCard()">Ajouter au panier</button>
 </div>
