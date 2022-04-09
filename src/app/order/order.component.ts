@@ -22,17 +22,21 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Date.now().toString();
-    this.cart = this.cartService.getAllItems();
+    this.cartService.getAllItems().subscribe((c) => (this.cart = c));
   }
 
   total(): string {
-    return this.cartService.total().toFixed(2);
+    return this.cartService.total(this.cart)?.toFixed(2);
   }
 
   confirm() {
-    const order = new Order(this.id, this.cart, this.cartService.total());
-    this.orderService.insert(order);
-    this.cartService.clear();
+    const order = new Order(
+      this.id,
+      this.cart,
+      this.cartService.total(this.cart)
+    );
+    this.orderService.insertOrder(order).subscribe();
+    this.cartService.clear().subscribe((c) => (this.cart = c));
     this.router.navigate(['/order-list']);
   }
 }

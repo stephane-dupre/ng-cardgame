@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../models/item.model';
@@ -6,75 +7,47 @@ import { Item } from '../models/item.model';
   providedIn: 'root',
 })
 export class CartService {
-  private local: Item[] = JSON.parse(
-    window.localStorage.getItem('cart') || 'null'
-  );
-  private cart: Observable<Item[]>;
   private items: Item[];
 
-  constructor() {
-    const init = this.local || [];
-    this.cart = new Observable<Item[]>((cart) => cart.next(init));
-    this.cart.subscribe((items) => (this.items = items));
+  constructor(private http: HttpClient) {
+    this.getAllItems().subscribe((c) => (this.items = c));
   }
 
-  private persist() {
-    window.localStorage.setItem('cart', JSON.stringify(this.items));
+  getAllItems(): Observable<Item[]> {
+    return <Observable<Item[]>>this.http.get('http://localhost:3000/cart');
   }
 
-  private isValid(qty: number) {
-    return !isNaN(qty) && qty > 0 && Number.isInteger(qty);
+  deleteItem(id: string): Observable<Item[]> {
+    return <Observable<Item[]>>(
+      this.http.delete(`http://localhost:3000/cart/${id}`)
+    );
   }
 
-  private find(idToFind: string): Item | undefined {
-    return this.items.find(({ id }) => idToFind === id);
+  putItem(item: Item): Observable<Item[]> {
+    return <Observable<Item[]>>(
+      this.http.put('http://localhost:3000/cart', item)
+    );
   }
 
-  private insert(cartItemToInsert: Item): void {
-    this.items.push(cartItemToInsert);
-    this.persist();
+  patchItem(id: string, qty: number): Observable<Item[]> {
+    return <Observable<Item[]>>(
+      this.http.put(`http://localhost:3000/cart/${id}`, { qty })
+    );
   }
 
-  private update(CartItemToUpdate: Item): void {
-    const item = this.find(CartItemToUpdate.id);
-    if (item) item.qty = CartItemToUpdate.qty;
-    this.persist();
+  clear(): Observable<Item[]> {
+    return <Observable<Item[]>>(
+      this.http.get('http://localhost:3000/cart/clear')
+    );
   }
 
-  getAllItems() {
-    return this.items;
+  itemCount(cart: Item[]) {
+    return cart?.reduce((acc, { qty }) => acc + qty, 0);
   }
 
-  deleteItem(cartItemToDelete: Item): void {
-    this.items.splice(this.items.indexOf(cartItemToDelete), 1);
-    this.persist();
-  }
-
-  addItem(item: Item): void {
-    if (!this.isValid(item.qty)) return;
-    const found = this.find(Item.generateId(item.variant, item.card.id));
-    found
-      ? this.update(new Item(found.qty + item.qty, item.variant, item.card))
-      : this.insert(item);
-  }
-
-  changeItemQty(newQty: number, { variant, card }: Item): void {
-    if (!this.isValid(newQty)) return;
-    this.update(new Item(newQty, variant, card));
-  }
-
-  clear(): void {
-    this.items.splice(0, this.items.length);
-    this.persist();
-  }
-
-  itemCount(): number {
-    return this.items.reduce((acc, { qty }) => acc + qty, 0);
-  }
-
-  total(): number {
-    return this.items.reduce(
-      (acc, { qty, variant, card }) => acc + qty * card.prices[variant],
+  total(cart: Item[]): number {
+    return cart?.reduce(
+      (acc, { qty, variant, card }) => acc + qty * card.variants[variant],
       0
     );
   }

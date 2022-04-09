@@ -9,7 +9,7 @@ export class Card {
     public oracle_text: string,
     public colors: string[],
     public keywords: string[],
-    public prices: { eur: number; eur_foil: number },
+    public variants: { normal: number; foil: number },
     public isFavorite: boolean,
     public power?: string,
     public toughness?: string

@@ -13,6 +13,6 @@ export class OrderListComponent implements OnInit {
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
-    this.orders = this.orderService.getAllOrders();
+    this.orderService.getAllOrders().subscribe((o) => (this.orders = o));
   }
 }

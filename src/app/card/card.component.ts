@@ -22,6 +22,8 @@ export class CardComponent {
       .onFavorite(this.card)
       .subscribe((c: Card) => (this.card = c));
 
-    this.cartService.addItem(new Item(2, 'eur', this.card));
+    this.cartService
+      .putItem(new Item(2, 'normal', this.card))
+      .subscribe((c) => console.log(c));
   }
 }

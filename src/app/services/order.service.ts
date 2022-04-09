@@ -1,25 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  private orders: Order[];
+  constructor(private http: HttpClient) {}
 
-  constructor() {
-    this.orders = [];
+  getAllOrders(): Observable<Order[]> {
+    return <Observable<Order[]>>this.http.get('http://localhost:3000/orders');
   }
 
-  getAllOrders(): Order[] {
-    return this.orders;
-  }
-
-  getOrder(id: string): Order | undefined {
-    return this.orders.find((order) => order.id === id);
-  }
-
-  insert(order: Order): void {
-    this.orders.push(order);
+  insertOrder(order: Order): Observable<Order[]> {
+    return <Observable<Order[]>>(
+      this.http.put('http://localhost:3000/orders', order)
+    );
   }
 }
