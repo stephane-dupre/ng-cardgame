@@ -29,9 +29,9 @@ export class CartService {
     );
   }
 
-  patchItem(id: string, qty: number): Observable<Item[]> {
+  patchItem(item: Item, qty: number): Observable<Item[]> {
     return <Observable<Item[]>>(
-      this.http.put(`http://localhost:3000/cart/${id}`, { qty })
+      this.http.put(`http://localhost:3000/cart/${item.id}`, { qty, item })
     );
   }
 
