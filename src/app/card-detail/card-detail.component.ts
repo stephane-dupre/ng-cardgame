@@ -13,7 +13,8 @@ import { CartService } from '../services/cart.service';
 export class CardDetailComponent {
   id: string;
   card!: Card;
-  selected: keyof Card['variants'];
+  selected: keyof Card['variants'] = 'normal';
+  qty: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,15 +24,17 @@ export class CardDetailComponent {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
     });
+  }
 
+  price() {
+    return this.card?.variants[this.selected];
   }
 
   putCard() {
     this.cartService
-      .putItem(new Item(1, this.selected, this.card))
+      .putItem(new Item(this.qty, this.selected, this.card))
       .subscribe((c) => console.log(c));
   }
-
 
   ngOnInit(): void {
     this.cardsService.getOneCard(this.id).subscribe((c) => (this.card = c));

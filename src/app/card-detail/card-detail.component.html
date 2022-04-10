@@ -1,13 +1,17 @@
 <div class="detail">
     <app-card [card]="card" class="card"></app-card>
     <div class="info">
-        <h1>{{ card.name }}</h1>
-        <h3>Couleurs de mana : {{ card.colors }}</h3>
-        <h3>Type de carte : {{ card.type_line }}</h3>
-        <h3>Effet de la carte : {{ card.oracle_text}}</h3>
-        <h3>Date de sortie : {{ card.released_at }}</h3>
+        <h1>{{ card?.name }}</h1>
+        <h3>Couleurs de mana : {{ card?.colors }}</h3>
+        <h3>Type de carte : {{ card?.type_line }}</h3>
+        <h3>Effet de la carte : {{ card?.oracle_text}}</h3>
+        <h3>Date de sortie : {{ card?.released_at }}</h3>
 
     
+        <mat-form-field class="input">
+            <mat-label>Quantité</mat-label>
+            <input matInput min="1" type="number" [(ngModel)]="qty"/>
+        </mat-form-field>
         <mat-form-field class="select">
             <mat-label>Selectionne le type de carte</mat-label>
             <mat-select [(value)]="selected">
@@ -15,6 +19,7 @@
                 <mat-option value="foil">Brillante</mat-option>
             </mat-select> 
         </mat-form-field>
-        <button mat-button (click)="putCard()">Ajouter au panier</button>
+        <div class="price">{{price()}} €</div>
+        <button mat-flat-button color="primary" (click)="putCard()">Ajouter au panier</button>
     </div>
 </div>

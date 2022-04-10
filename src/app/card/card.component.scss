@@ -5,12 +5,6 @@
   position: relative;
   padding-bottom: 0;
   border-radius: var(--b-rad);
-
-  transition: transform 100ms ease-in;
-}
-
-.root:hover {
-  transform: translateY(-0.25rem);
 }
 
 .favorite {
