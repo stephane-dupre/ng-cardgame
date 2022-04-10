@@ -31,9 +31,7 @@ export class CartComponent implements OnInit {
   };
 
   updateItemQty = ({ newQty, item }: { newQty: number; item: Item }) => {
-    this.cartService
-      .patchItem(item.id, newQty)
-      .subscribe((c) => (this.cart = c));
+    this.cartService.patchItem(item, newQty).subscribe((c) => (this.cart = c));
   };
 
   order = () => {

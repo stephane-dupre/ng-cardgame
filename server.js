@@ -515,8 +515,10 @@ app.put("/cards/:id/favorite", (req, res) => {
 
 // CART
 // functions
-const isValid = (qty) => {
-  return !isNaN(qty) && qty > 0 && Number.isInteger(qty);
+const isValid = (qty, variant) => {
+  if (isNaN(qty) || qty < 1 || !Number.isInteger(qty)) return false;
+  if (variant !== "normal" && variant !== "foil") return false;
+  return true;
 };
 
 const find = (idToFind) => {
@@ -543,7 +545,7 @@ app.get("/cart", (req, res) => {
 
 app.put("/cart", (req, res) => {
   const item = req.body;
-  if (!isValid(item.qty)) return;
+  if (!isValid(item.qty, item.variant)) return;
   const found = find(item.id);
   found ? update(found, found.qty + item.qty) : insert(item);
 
@@ -553,10 +555,11 @@ app.put("/cart", (req, res) => {
 
 app.put("/cart/:id", (req, res) => {
   const id = req.params.id;
-  const item = req.body;
-  if (!isValid(item.qty)) return;
+  const item = req.body.item;
+  const qty = req.body.qty;
+  if (!isValid(qty, item.variant)) return;
   const found = find(id);
-  found && update(found, item.qty);
+  found && update(found, qty);
   res.set("Acces-Control-Allow-Origin", "*");
   res.json(cart);
 });
