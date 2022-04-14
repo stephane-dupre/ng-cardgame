@@ -1,0 +1,16 @@
+<mat-card [formGroup]="form" class="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Entrer votre email</mat-label>
+    <input
+      formControlName="email"
+      matInput
+      placeholder="pat@example.com"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Votre message</mat-label>
+    <textarea formControlName="message" rows="15" matInput></textarea>
+  </mat-form-field>
+  <button mat-flat-button color="primary" (click)="onSubmit()">Envoyer</button>
+</mat-card>
