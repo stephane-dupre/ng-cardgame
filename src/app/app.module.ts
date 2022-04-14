@@ -12,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
@@ -29,6 +29,7 @@ import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { OrderComponent } from './order/order.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { OrderListComponent } from './order-list/order-list.component';
     CartItemComponent,
     OrderComponent,
     OrderListComponent,
+    ContactComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -59,6 +61,7 @@ import { OrderListComponent } from './order-list/order-list.component';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
   exports: [SearchCardsPipe, OrderCardsPipe],
